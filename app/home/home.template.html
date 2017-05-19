@@ -1,0 +1,208 @@
+<div *ngIf="auth.authenticated()">
+<div *ngIf="!book">
+    <h1>Welcome to FlightApp</h1>
+
+    <p>We're a high-growth business with a simple aim: to inspire travellers around the world and make travel search as easy
+        as possible through our world-class technology</p>
+
+
+    <button class="btn-primary" (click)="bookTicket()">Book your Flights</button>
+</div>
+
+<div *ngIf="book" id="build" class="build formBound tripInitializeBound" data-form="buildYourTrip" data-form-submit-button=".action .button">
+    <fieldset class="tripOptions">
+        <ul class="tripType">
+            <li class="flight">
+                <input id="package1" type="radio" class="radio" name="PackageType" value="1" checked="checked" tabindex="1">
+                <label for="package1" class="radio checked">Flight only</label>
+            </li>
+            <li class="hotel">
+                <input id="package2" type="radio" class="radio" name="PackageType" value="2" tabindex="1">
+                <label for="package2" class="radio">Hotel only</label>
+            </li>
+            <li class="package">
+                <input id="package3" type="radio" class="radio" name="PackageType" value="3" tabindex="1">
+                <label for="package3" class="radio">Flight + Hotel</label>
+            </li>
+        </ul>
+        <ul class="flightType">
+            <li>
+                <input type="radio" id="trip_round" class="radio" name="FlightType" value="1" checked="checked" tabindex="1">
+                <label for="trip_round" class="radio checked">Round trip</label>
+            </li>
+            <li>
+                <input type="radio" id="trip_one" name="FlightType" value="0" class="radio" tabindex="1">
+                <label for="trip_one" class="radio">One way</label>
+            </li>
+            <li class="optional flightsOnly_all">
+                <input type="radio" id="trip_multi" name="FlightType" value="4" class="radio" tabindex="1">
+                <label for="trip_multi" class="radio">Multi-city</label>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset class="origin"><input type="text" name="Origin" data-input-rule="resolution" data-value-rule="resolution, required" data-custom-rule="string.notEqualTo[.destination input]"
+            value="" placeholder="From" class="text mandatory upgradedElement" tabindex="1" autocomplete="off" autocorrect="off"></fieldset>
+    <fieldset
+        class="destination"><input type="text" name="Destination" data-input-rule="resolution" data-value-rule="resolution, required" value="" placeholder="To"
+            class="text mandatory upgradedElement" tabindex="1" autocomplete="off" autocorrect="off"></fieldset>
+        <fieldset class="multiCity fullWidth optional flightsOnly_multiCity hidden"><span class="first">Flight 1</span>
+            <div class="origin1">
+                <input type="text" value="" placeholder="From" name="Origin1" data-input-rule="resolution" data-value-rule="resolution, required"
+                    data-custom-rule="string.notEqualTo[.destination1 input]" class="text mandatory upgradedElement" tabindex="1"
+                    autocomplete="off" autocorrect="off">
+            </div>
+            <div class="destination1">
+                <input type="text" value="" data-input-rule="resolution" data-value-rule="resolution, required" placeholder="To" name="Destination1"
+                    class="text mandatory upgradedElement" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+            <div class="start1">
+                <input type="text" value="" placeholder="Leave on" name="StartDate1" data-input-rule="date" data-custom-rule="date.notLessThanCurrent"
+                    class="text mandatory upgradedElement" data-value-rule="required" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+        </fieldset>
+        <fieldset class="multiCity fullWidth optional flightsOnly_multiCity hidden" data-custom-rule="allOrNoneFilled[input|this]"><span>Flight 2</span>
+            <div class="origin2">
+                <input type="text" name="Origin2" placeholder="From" value="" class="text" data-input-rule="resolution" data-value-rule="resolution"
+                    data-custom-rule="string.notEqualTo[.destination2 input]" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+            <div class="destination2">
+                <input type="text" name="Destination2" data-input-rule="resolution" data-value-rule="resolution" placeholder="To" value=""
+                    class="text" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+            <div class="start2">
+                <input type="text" name="StartDate2" data-input-rule="date" placeholder="Leave on" value="" class="text" data-custom-rule="date.notLessThan[.start1 input]"
+                    tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+        </fieldset>
+        <fieldset class="multiCity fullWidth optional flightsOnly_multiCity hidden" data-custom-rule="allOrNoneFilled[input|this]"><span>Flight 3</span>
+            <div class="origin3">
+                <input type="text" name="Origin3" placeholder="From" value="" class="text" data-input-rule="resolution" data-value-rule="resolution"
+                    data-custom-rule="string.notEqualTo[.destination3 input]" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+            <div class="destination3">
+                <input type="text" name="Destination3" data-input-rule="resolution" data-value-rule="resolution" placeholder="To" value=""
+                    class="text" tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+            <div class="start3">
+                <input type="text" name="StartDate3" data-input-rule="date" placeholder="Leave on" value="" class="text" data-custom-rule="date.notLessThan[.start2 input]"
+                    tabindex="1" autocomplete="off" autocorrect="off">
+            </div>
+        </fieldset>
+        <fieldset class="moreFlights fullWidth optional flightsOnly_multiCity hidden"><span><a class="evenMore" href="#" tabindex="1">Inquire for more flights</a></span></fieldset>
+        <fieldset class="hotelLocation fullWidth hidden"><input type="text" name="HotelLocation" value="" placeholder="Hotel location" data-input-rule="resolution" data-value-rule="resolution, required"
+                class="mandatory text upgradedElement" tabindex="1" autocomplete="off" autocorrect="off"></fieldset>
+        <fieldset
+            class="start"><input type="text" name="StartDate" data-input-rule="date" data-value-rule="date, required" data-custom-rule="date.notLessThanCurrent"
+                placeholder="Leave on" data-trip-type-hotels-placeholder="Check-in on" data-trip-type-other-placeholder="Leave on"
+                class="text mandatory upgradedElement" tabindex="1" autocomplete="off" autocorrect="off"></fieldset>
+            <fieldset
+                class="end"><input type="text" name="EndDate" data-input-rule="date" data-value-rule="date, required" data-custom-rule="date.notLessThan[.start input]"
+                    placeholder="Return on" data-trip-type-hotels-placeholder="Check-out on" data-trip-type-other-placeholder="Return on"
+                    class="text mandatory upgradedElement" tabindex="1" autocomplete="off" autocorrect="off"></fieldset>
+                <fieldset
+                    data-element="travelerFlight" class="optional flightsOnly_all travelers fullWidth travelerFlightBound"><a href="/Information/TravelerRules/Default.aspx" class="compactPopup help tabInaccessible" tabindex="2"><span>Travelers</span></a>
+                    <div
+                        class="adults">
+                        <select name="AdultsFlight" data-element="travelerAdult" tabindex="1"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option><option value="5">5 adults</option><option value="6">6 adults</option><option value="7">7 adults</option><option value="8">8 adults</option><option value="9">9 adults</option></select>
+</div>
+<div class="children">
+    <select name="ChildrenFlight" data-element="travelerChild" tabindex="1"><option value="0">0 children</option><option value="1">1 child</option><option value="2">2 children</option><option value="3">3 children</option><option value="4">4 children</option><option value="5">5 children</option><option value="6">6 children</option><option value="7">7 children</option><option value="8">8 children</option></select>
+</div>
+<div class="infants">
+    <select name="InfantsFlight" data-element="travelerInfant" tabindex="1"><option value="0">0 infants</option><option value="1">1 infant</option></select>
+</div>
+</fieldset>
+<div id="addARoomContainer" class="addARoomInitialized">
+    <div id="room1" data-element="roomsRow" class="optional roomsRow hotelsOnly_all flightsPlusHotels_all hidden">
+        <fieldset class="rooms hidden"><label><span class="tabInaccessible">Room 1</span></label></fieldset>
+        <fieldset class="delete check last"></fieldset>
+        <fieldset class="travelers fullWidth travelerHotelBound" data-element="travelerHotel"><span>Travelers</span>
+            <div class="adults">
+                <select name="AdultsHotelRoom1" data-element="travelerAdult" tabindex="1"><option value="1">1 adult</option><option value="2">2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option></select>
+            </div>
+            <div class="children">
+                <select name="ChildrenHotelRoom1" data-element="travelerChild" tabindex="1"><option value="0">0 children</option><option value="1">1 child</option><option value="2">2 children</option><option value="3">3 children</option></select>
+            </div>
+            <div class="ageBlock">
+                <div class="age" style="display: none;">
+                    <select name="ChildrenHotelRoom1Age1" class="mandatory upgradedElement" tabindex="1" data-value-rule="required">
+                        <option value="">Child 1 age</option>
+                        <option value="0">Under 1</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                </div>
+                <div class="age" style="display: none;">
+                    <select name="ChildrenHotelRoom1Age2" class="mandatory upgradedElement" tabindex="1" data-value-rule="required">
+                        <option value="">Child 2 age</option>
+                        <option value="0">Under 1</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                </div>
+                <div class="age last" style="display: none;">
+                    <select name="ChildrenHotelRoom1Age3" class="mandatory upgradedElement" tabindex="1" data-value-rule="required">
+                        <option value="">Child 3 age</option>
+                        <option value="0">Under 1</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<fieldset class="optional addNew hotelsOnly_all flightsPlusHotels_all hidden"><a href="#" class="addARoom more tabInaccessible show" data-current-room="0" data-room-template="#bytRoomTemplate" data-element="addRoom"
+        data-room-container="#addARoomContainer" data-element-id-format="roomsRow" tabindex="2">Add another room</a></fieldset>
+<div
+    id="advancedBuild" class="advanced hidden">
+    <fieldset class="cabinClass"><select name="CabinClass" tabindex="1">
+                    <option selected="selected" value="0">Any class</option>
+                    <option value="1">Economy class</option>
+                    <option value="2">Premium economy</option>
+                    <option value="3">Business class</option>
+                    <option value="4">First class</option>
+                </select></fieldset>
+    <fieldset class="airline"><input type="text" name="Airline" value="" placeholder="Airline" class="text" data-value-rule="resolution" tabindex="1"
+            autocomplete="off" autocorrect="off"></fieldset>
+    <fieldset class="direct"><input id="NonstopFlight" type="checkbox" class="check" value="2" name="NonstopFlight" tabindex="1"><label class="check"
+            for="NonstopFlight">Non-stop flights only</label></fieldset>
+    </div>
+    <fieldset class="action"><a href="#" class="more tabInaccessible toggleVisibility toggleHidden" name="advancedBuild" data-text-shown="Less options"
+            data-text-hidden="More options" tabindex="2" targetelementid="advancedBuild">More options</a><a data-element="button"
+            class="optional submit button yellow flightsOnly_all buttonBound customButton" tabindex="1"><i class="customLabel">Find flights</i></a>
+        <a
+            data-element="button" class="optional submit button yellow hotelsOnly_all buttonBound customButton hidden" tabindex="1"><i class="customLabel">Find hotels</i></a><a data-element="button" class="optional submit button yellow flightsPlusHotels_all buttonBound customButton hidden"
+                tabindex="1"><i class="customLabel">Find flight + hotel</i></a></fieldset>
+    </div>
+</div>
+<div *ngIf="!auth.authenticated()">
+    <h1>Please log in..</h1>
+</div>
